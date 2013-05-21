@@ -35,7 +35,10 @@ class RedBack4 extends uConnection {
     $this->openSocket();
 
     $header = sprintf("PATH_INFO\xfeRPVERSION\xfeHTTP_USER_AGENT\xfeQUERY_STRING\xfeSPIDER_VERSION");
-    $data = sprintf("/rbo/%s\xfe4.3.0.123\xferedbeans=1\xfe%s\xfe101", $method, $input_properties->http_build_query(TRUE, array('HID_FORM_INST', 'HID_USER'), '/HID_ROW_\d+/') . '&redbeans=1' . ($monitor ? '&MONITOR=1' : ''));
+    $values = $input_properties->http_build_query(TRUE, array('HID_FORM_INST', 'HID_USER'), '/HID_ROW_\d+/');
+    $values.= (!empty($values) ? '&' : '') . 'redbeans=1' . ($monitor ? '&MONITOR=1' : '');
+
+    $data = sprintf("/rbo/%s\xfe4.3.0.123\xferedbeans=1\xfe%s\xfe101", $method, $values);
     $out = sprintf('%010d%s%010d%s', strlen($header), $header, strlen($data), $data);
     $notice = '';
     $return_properties = new uArrayContainer(NULL, array('delimiter' => VM));
