@@ -48,7 +48,7 @@ class RedBack4 extends uConnection {
     @socket_write($this->socket, $out);
     if ($err = socket_last_error($this->socket)) {
       $this->closeSocket();
-      throw new uCommsException("Error Writing to Server ($err) " . socket_strerror($err));
+      throw new uCommsException("Error Writing to Server ($err) " . socket_strerror($err), 0, $monitorData, $debugData);
     }
 
     /*
@@ -100,12 +100,12 @@ class RedBack4 extends uConnection {
     if ($blocks == 0) {
       // No response was given from the server.
       $this->closeSocket();
-      throw new uCommsException('No reponse from request.');
+      throw new uCommsException('No reponse from request.', 0, $monitorData, $debugData);
     }
 
     if (!empty($notice)) {
       $this->closeSocket();
-      throw new uServerException($notice);
+      throw new uServerException($notice, 0, $monitorData, $debugData);
     }
 
     if ($err = socket_last_error($this->socket)) {
@@ -129,7 +129,7 @@ class RedBack4 extends uConnection {
       $result = @socket_connect($this->socket, $this->host, $this->port);
       if (!$result) {
         $this->closeSocket();
-        throw new uCommsException("connecting to server failed, Reason: ($result) " . socket_strerror($result));
+        throw new uCommsException("connecting to server failed, Reason: ($result) " . socket_strerror($result), 0, $monitorData, $debugData);
       }
     }
   }
@@ -162,7 +162,7 @@ class RedBack4 extends uConnection {
           else {
             $err = socket_last_error($this->socket);
             $this->closeSocket();
-            throw new uCommsException("Error Reading from Server ($err) " . socket_strerror($err));
+            throw new uCommsException("Error Reading from Server ($err) " . socket_strerror($err), 0, NULL, $debugData);
           }
         }
 
