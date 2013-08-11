@@ -129,7 +129,7 @@ class RedBack4 extends uConnection {
       $result = @socket_connect($this->socket, $this->host, $this->port);
       if (!$result) {
         $this->closeSocket();
-        throw new uCommsException("connecting to server failed, Reason: ($result) " . socket_strerror($result), 0, $monitorData, $debugData);
+        throw new uCommsException("connecting to server failed, Reason: ($result) " . socket_strerror($result), 0);
       }
     }
   }
