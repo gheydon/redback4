@@ -15,8 +15,8 @@
   ],
   "require": {
     "php": ">=5.3.0",
-    "heydon/redback": "1.0.*",
-    "heydon/uarray": "1.0.*"
+    "heydon/redback": "1.0.*@dev",
+    "heydon/uarray": "1.0.*@dev"
   },
   "require-dev": {
   },
